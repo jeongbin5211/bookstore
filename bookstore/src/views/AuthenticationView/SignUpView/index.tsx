@@ -224,7 +224,7 @@ export default function SignUp() {
             />
           </CardContent>
           <CardActions>
-            <Button fullWidth onClick={() => signUpHandler()} variant='contained' sx={{ bgcolor: '#F0A500'}}>
+            <Button fullWidth onClick={() => signUpHandler()} variant='contained' sx={{ bgcolor: '#F0A500', marginTop: '2vw'}}>
               회원 가입
             </Button>
           </CardActions>
