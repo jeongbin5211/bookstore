@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { create } from "zustand";
 
 interface User {

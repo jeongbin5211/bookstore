@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { Box, Button, Card, CardActions, CardContent, TextField, Typography } from '@mui/material';
+
 import useUserStore from '../../../stores/user.store'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-
-import { Box, Button, Card, CardActions, CardContent, TextField, Typography } from '@mui/material';
+import { useCookies } from 'react-cookie';
 
 
 
@@ -40,6 +41,10 @@ export default function SignIn() {
   const [userId, setUserId] = useState<string>('')
   const [userPassword, setUserPassword] = useState<string>('')
 
+  //! useCookie 훅
+  // npm install react-cookie
+  const [cookies, setCookies] = useCookies();
+
   // 회원 데이터를 store에서 관리
   const {user, setUser} = useUserStore();
 
@@ -51,6 +56,11 @@ export default function SignIn() {
       alert('아이디와 비밀번호를 입력하세요.')
       return;
     }
+
+    // if(!userId || !userPassword) {
+    //   alert('아이디와 비밀번호를 입력하세요.')
+    //   return;
+    // }
 
     // 입력한 데이터를 전송하기 위해 data에 담기
     const data = {
@@ -72,6 +82,11 @@ export default function SignIn() {
         }
 
         // 로그인 성공 시, cookies와 회원 정보를 설정
+        const {token, exprTime, user} = responseData.data;
+        const expires = new Date();
+        expires.setMilliseconds(expires.getMilliseconds() + exprTime)
+
+        setCookies('token', token, { expires })
         setUser(user);
       })
       .catch((error) => {
