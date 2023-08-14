@@ -21,3 +21,11 @@ export const mockAskData = [
     askDatetime: '2023-06-01',
   },
 ]
+
+export const mockAskUpdateData = {
+  askId: 1,
+  askWriter: '사용자1',
+  askSort: '제품 문의',
+  askTitle: '제품에 대해 문의합니다.',
+  askContent: '제품 사용법에 대해 알고 싶습니다.'
+}

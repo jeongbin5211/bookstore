@@ -195,6 +195,13 @@ export default function UserAskList() {
               <Button fullWidth variant="outlined" onClick={askSearch}>
                 조회하기
               </Button>
+              <Box>
+                <Link to={"/userAskWriter"}>
+                  <Button fullWidth variant="contained">
+                    문의 작성하기
+                  </Button>
+                </Link>
+              </Box>
 
               {askList.map((ask) => (
                 <>
@@ -205,7 +212,9 @@ export default function UserAskList() {
                     <Typography>{ask.askStatus}</Typography>
                     <Typography>{ask.askDatetime}</Typography>
                   </Box>
-                  <Link to={`/userAskUpdate/${ask.askId}`}><Button>수정</Button></Link>
+                  <Link to={`/userAskUpdate/${ask.askId}`}>
+                    <Button>수정</Button>
+                  </Link>
                   <Button
                     fullWidth
                     variant="outlined"
