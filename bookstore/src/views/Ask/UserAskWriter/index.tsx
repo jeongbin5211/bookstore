@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 import useUserStore from '../../../stores/user.store';
-import { mockUser } from '../../../mocks/mockUserData'; 
+import mockUser from '../../../mocks/mockUserData'; 
 
 export default function UseAskWriter() {
 

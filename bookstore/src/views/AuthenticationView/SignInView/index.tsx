@@ -5,6 +5,7 @@ import useUserStore from '../../../stores/user.store'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import mockUserData from '../../../mocks/mockUserData';
 
 
 
@@ -62,36 +63,46 @@ export default function SignIn() {
     //   return;
     // }
 
-    // 입력한 데이터를 전송하기 위해 data에 담기
-    const data = {
-      userId,
-      userPassword
+    //^ mockData를 사용하여 로그인 페이지 구축
+    const foundUser = mockUserData.find(user => user.userId === userId && user.userPassword === userPassword);
+
+    if (!foundUser) {
+      alert('로그인에 실패했습니다.')
+      return;
     }
 
-    // 로그인 정보(data)를 전송 - post(URL경로, data)
-    // then, catch사용해서 검증하기
-    axios.post('http://localhost:4080/api/auth/signIn', data)
-      .then((response) => {
-        const responseData = response.data;
-        console.log(responseData);
+    setUser(foundUser);
 
-        // 로그인에 실패할 경우, alert알림
-        if(!responseData.result) {
-          alert('로그인에 실패했습니다.');
-          return;
-        }
+    //! 입력한 데이터를 전송하기 위해 data에 담기
+    // const data = {
+    //   userId,
+    //   userPassword
+    // }
 
-        // 로그인 성공 시, cookies와 회원 정보를 설정
-        const {token, exprTime, user} = responseData.data;
-        const expires = new Date();
-        expires.setMilliseconds(expires.getMilliseconds() + exprTime)
+    //! 로그인 정보(data)를 전송 - post(URL경로, data)
+    //! then, catch사용해서 검증하기
+    // axios.post('http://localhost:4080/api/auth/signIn', data)
+    //   .then((response) => {
+    //     const responseData = response.data;
+    //     console.log(responseData);
 
-        setCookies('token', token, { expires })
-        setUser(user);
-      })
-      .catch((error) => {
-        alert('로그인에 실패했습니다.')
-      })
+    //!      로그인에 실패할 경우, alert알림
+    //     if(!responseData.result) {
+    //       alert('로그인에 실패했습니다.');
+    //       return;
+    //     }
+
+    //!      로그인 성공 시, cookies와 회원 정보를 설정
+    //     const {token, exprTime, user} = responseData.data;
+    //     const expires = new Date();
+    //     expires.setMilliseconds(expires.getMilliseconds() + exprTime)
+
+    //     setCookies('token', token, { expires })
+    //     setUser(user);
+    //   })
+    //   .catch((error) => {
+    //     alert('로그인에 실패했습니다.')
+    //   })
 
   }
 
